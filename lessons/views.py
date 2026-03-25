@@ -18,114 +18,112 @@ from .serializers import (
 )
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([AllowAny])
 def register_view(request):
     serializer = RegisterSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(
-        {'message': 'User created successfully'},
-        status=status.HTTP_201_CREATED
+        {"message": "User created successfully"}, status=status.HTTP_201_CREATED
     )
 
 
-@api_view(['GET', 'PATCH'])
+@api_view(["GET", "PATCH"])
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser, FormParser])
 def me_view(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         return Response(MeSerializer(request.user).data)
 
-    serializer = MeUpdateSerializer(
-        request.user,
-        data=request.data,
-        partial=True
-    )
+    serializer = MeUpdateSerializer(request.user, data=request.data, partial=True)
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(MeSerializer(request.user).data)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def courses(request):
     items = Course.objects.all()
-    return Response({
-        'courses': CourseSerializer(items, many=True).data
-    })
+    return Response({"courses": CourseSerializer(items, many=True).data})
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def lessons(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     items = course.lessons.all()
 
-    return Response({
-        'lessons': [
-            {
-                'id': item.id,
-                'title': item.title,
-                'description': item.description,
-            }
-            for item in items
-        ]
-    })
+    return Response(
+        {
+            "lessons": [
+                {
+                    "id": item.id,
+                    "title": item.title,
+                    "description": item.description,
+                }
+                for item in items
+            ]
+        }
+    )
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def tasks(request, lesson_id):
     lesson = get_object_or_404(Lesson, id=lesson_id)
     items = lesson.tasks.all()
 
-    return Response({
-        'tasks': TaskSerializer(items, many=True).data,
-        'description': lesson.description,
-        'title': lesson.title,
-    })
+    return Response(
+        {
+            "tasks": TaskSerializer(items, many=True).data,
+            "description": lesson.description,
+            "title": lesson.title,
+        }
+    )
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_audio(request, task_id):
     task = get_object_or_404(Task, id=task_id)
 
     if not task.audio_file:
-        return Response({'error': 'Audio not found'}, status=404)
+        return Response({"error": "Audio not found"}, status=404)
 
-    return FileResponse(task.audio_file.open('rb'), content_type='audio/mpeg')
+    return FileResponse(task.audio_file.open("rb"), content_type="audio/mpeg")
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser, FormParser])
 def upload_audio(request, task_id):
     task = get_object_or_404(Task, id=task_id)
-    audio = request.FILES.get('audio')
+    audio = request.FILES.get("audio")
 
     if not audio:
-        return Response({'error': 'Audio file is required'}, status=400)
+        return Response({"error": "Audio file is required"}, status=400)
 
     submission = TaskSubmission.objects.create(
         user=request.user,
         task=task,
         result_file=audio,
-        comment=request.data.get('comment', '')
+        comment=request.data.get("comment", ""),
     )
 
-    return Response({
-        'message': 'Audio uploaded successfully',
-        'submission': TaskSubmissionSerializer(submission).data
-    }, status=201)
+    return Response(
+        {
+            "message": "Audio uploaded successfully",
+            "submission": TaskSubmissionSerializer(submission).data,
+        },
+        status=201,
+    )
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def my_submissions(request):
-    items = TaskSubmission.objects.filter(user=request.user).select_related('task')
+    items = TaskSubmission.objects.filter(user=request.user).select_related("task")
 
-    return Response({
-        'submissions': TaskSubmissionSerializer(items, many=True).data
-    })
+    return Response({"submissions": TaskSubmissionSerializer(items, many=True).data})
