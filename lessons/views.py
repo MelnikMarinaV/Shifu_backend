@@ -1,84 +1,131 @@
-from django.http import JsonResponse, HttpResponse
-from lessons.models import Course, Lesson, Task
-from django.views.decorators.csrf import csrf_exempt
+from django.http import FileResponse
+from django.shortcuts import get_object_or_404
+
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes, parser_classes
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+
+from .models import Course, Lesson, Task, TaskSubmission
+from .serializers import (
+    RegisterSerializer,
+    MeSerializer,
+    MeUpdateSerializer,
+    CourseSerializer,
+    TaskSerializer,
+    TaskSubmissionSerializer,
+)
 
 
-# Обрабатывает GET-запросы к URL /api/courses/
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register_view(request):
+    serializer = RegisterSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(
+        {'message': 'User created successfully'},
+        status=status.HTTP_201_CREATED
+    )
+
+
+@api_view(['GET', 'PATCH'])
+@permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
+def me_view(request):
+    if request.method == 'GET':
+        return Response(MeSerializer(request.user).data)
+
+    serializer = MeUpdateSerializer(
+        request.user,
+        data=request.data,
+        partial=True
+    )
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(MeSerializer(request.user).data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def courses(request):
-    courses = (
-        Course.objects.all()
-    )  # Получает все объекты модели `Course` из базы данных
-    return JsonResponse(
-        {  # Формирует JSON-ответ, содержащий список всех курсов с их id и title
-            "courses": [{"id": course.id, "title": course.title} for course in courses]
-        }
-    )
+    items = Course.objects.all()
+    return Response({
+        'courses': CourseSerializer(items, many=True).data
+    })
 
 
-# Обрабатывает GET-запросы к URL /api/lessons/<course_id>/
-@csrf_exempt
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def lessons(request, course_id):
-    course = Course.objects.get(
-        id=course_id
-    )  # Получает объект Course  с заданным course_id
-    lessons = Lesson.objects.filter(
-        course=course
-    )  # Получает все объекты модели Lesson, связанные с этим курсом
-    return JsonResponse(
-        {  #  Формирует JSON-ответ, содержащий список уроков с их id и title
-            "lessons": [{"id": lesson.id, "title": lesson.title} for lesson in lessons]
-        }
-    )
+    course = get_object_or_404(Course, id=course_id)
+    items = course.lessons.all()
+
+    return Response({
+        'lessons': [
+            {
+                'id': item.id,
+                'title': item.title,
+                'description': item.description,
+            }
+            for item in items
+        ]
+    })
 
 
-# Обрабатывает GET-запросы к URL /api/tasks/<lesson_id>/
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def tasks(request, lesson_id):
-    lesson = Lesson.objects.get(
-        id=lesson_id
-    )  # Получает объект Lesson  с заданным lesson_id
-    tasks = Task.objects.filter(
-        lesson=lesson
-    )  # Получает все объекты модели Task, связанные с этим уроком
-    return JsonResponse(
-        {  # Формирует JSON-ответ, содержащий список заданий с их id, title(сам контент упражнения) и task_description(ответ к заданию)
-            "tasks": [
-                {
-                    "id": task.id,
-                    "title": task.title,
-                    "description": task.task_description,
-                }
-                for task in tasks
-            ],
-            "description": lesson.description,  # описание урока-теория
-            "title": lesson.title,  # название урока
-        }
+    lesson = get_object_or_404(Lesson, id=lesson_id)
+    items = lesson.tasks.all()
+
+    return Response({
+        'tasks': TaskSerializer(items, many=True).data,
+        'description': lesson.description,
+        'title': lesson.title,
+    })
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_audio(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    if not task.audio_file:
+        return Response({'error': 'Audio not found'}, status=404)
+
+    return FileResponse(task.audio_file.open('rb'), content_type='audio/mpeg')
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
+def upload_audio(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    audio = request.FILES.get('audio')
+
+    if not audio:
+        return Response({'error': 'Audio file is required'}, status=400)
+
+    submission = TaskSubmission.objects.create(
+        user=request.user,
+        task=task,
+        result_file=audio,
+        comment=request.data.get('comment', '')
     )
 
-
-# получение аудио файла произношения фраз(расположены локально)
-# Обрабатывает GET-запросы к URL /get_audio/<task_id>/
-@csrf_exempt
-def get_audio(request, task_id):
-    path = f"C:/Users/Admin/Documents/back/lessons/static/audios/task{task_id}.mp3"  # путь до файла
-    with open(path, "rb") as f:
-        audio = f.read()
-    return HttpResponse(
-        audio, content_type="audio/mpeg"
-    )  # Возвращает содержимое аудиофайла
+    return Response({
+        'message': 'Audio uploaded successfully',
+        'submission': TaskSubmissionSerializer(submission).data
+    }, status=201)
 
 
-# обрабатывает загрузку аудиофайлов от пользователя, которые связаны с определенным заданием
-# Обрабатывает POST-запросы к URL /upload_audio/<task_id>/
-@csrf_exempt
-def upload_audio(request, task_id):
-    if "audio" in request.FILES:  # Ожидает получить аудиофайл в поле audio тела запроса
-        audio_file = request.FILES["audio"]
-        path = f"C:/Users/Admin/Documents/back/lessons/static/submissions/task{task_id}.mp3"
-        with open(
-            path, "wb"
-        ) as destination:  # Сохраняет полученный аудиофайл на сервере по пути
-            for chunk in audio_file.chunks():
-                destination.write(chunk)
-        return JsonResponse({"message": "Audio file saved successfully"})
-    else:
-        return JsonResponse({"error": "No audio file found in the request"}, status=400)
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_submissions(request):
+    items = TaskSubmission.objects.filter(user=request.user).select_related('task')
+
+    return Response({
+        'submissions': TaskSubmissionSerializer(items, many=True).data
+    })
