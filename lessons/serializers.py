@@ -10,39 +10,39 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'password_confirm']
+        fields = ["username", "email", "password", "password_confirm"]
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password_confirm']:
-            raise serializers.ValidationError({
-                'password_confirm': 'Passwords do not match'
-            })
+        if attrs["password"] != attrs["password_confirm"]:
+            raise serializers.ValidationError(
+                {"password_confirm": "Passwords do not match"}
+            )
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop('password_confirm')
-        password = validated_data.pop('password')
+        validated_data.pop("password_confirm")
+        password = validated_data.pop("password")
         return User.objects.create_user(password=password, **validated_data)
 
 
 class MeSerializer(serializers.ModelSerializer):
-    avatar = serializers.ImageField(source='profile.avatar', read_only=True)
+    avatar = serializers.ImageField(source="profile.avatar", read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'avatar']
+        fields = ["id", "username", "email", "avatar"]
 
 
 class MeUpdateSerializer(serializers.ModelSerializer):
-    avatar = serializers.ImageField(source='profile.avatar', required=False)
+    avatar = serializers.ImageField(source="profile.avatar", required=False)
 
     class Meta:
         model = User
-        fields = ['avatar']
+        fields = ["avatar"]
 
     def update(self, instance, validated_data):
-        profile_data = validated_data.get('profile', {})
-        avatar = profile_data.get('avatar')
+        profile_data = validated_data.get("profile", {})
+        avatar = profile_data.get("avatar")
         if avatar:
             instance.profile.avatar = avatar
             instance.profile.save()
@@ -52,13 +52,13 @@ class MeUpdateSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'title']
+        fields = ["id", "title"]
 
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ['id', 'title', 'description', 'course']
+        fields = ["id", "title", "description", "course"]
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -66,15 +66,15 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ['id', 'title', 'task_description', 'lesson', 'has_audio']
+        fields = ["id", "title", "task_description", "lesson", "has_audio"]
 
     def get_has_audio(self, obj):
         return bool(obj.audio_file)
 
 
 class TaskSubmissionSerializer(serializers.ModelSerializer):
-    task_title = serializers.CharField(source='task.title', read_only=True)
+    task_title = serializers.CharField(source="task.title", read_only=True)
 
     class Meta:
         model = TaskSubmission
-        fields = ['id', 'task', 'task_title', 'comment', 'result_file', 'created_at']
+        fields = ["id", "task", "task_title", "comment", "result_file", "created_at"]
