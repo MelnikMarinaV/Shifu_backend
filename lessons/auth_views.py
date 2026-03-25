@@ -69,3 +69,4 @@ def me(request):
     """Return the current authenticated user."""
 
     return Response(_serialize_user(request.user))
+

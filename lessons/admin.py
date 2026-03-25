@@ -1,40 +1,30 @@
 from django.contrib import admin
-from lessons.models import Course, Lesson, Task, TaskSubmission
-
-# Register your models here.
+from .models import Course, Lesson, Task, TaskSubmission, UserProfile
 
 
-@admin.register(Course)  # регистрирация модели Course в административной панели
+@admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = [
-        "title"
-    ]  # отображение названия курса в списке моделей в административной панели
+    list_display = ['id', 'title']
 
 
-@admin.register(Lesson)  # регистрирация модели Lesson в административной панели
+@admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = [
-        "title",
-        "get_course_title",
-    ]  # отображение названия урока и названия курса, к которому он привязан
-
-    def get_course_title(self, obj):  # возвращает название курса для урока
-        if obj.course:
-            return obj.course.title
-        else:
-            return "-"  # Если курс не указан
-
-    get_course_title.short_description = (
-        "Course"  # Название колонки в административной панели
-    )
+    list_display = ['id', 'title', 'course']
+    list_filter = ['course']
 
 
-@admin.register(Task)  # регистрация модели задания
+@admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'title', 'lesson']
+    list_filter = ['lesson']
 
 
-# @admin.register(TaskSubmission)
-# class TaskSubmissionAdmin(admin.ModelAdmin):
-#     list_filter = ["task"]
-#     list_display = ['task']
+@admin.register(TaskSubmission)
+class TaskSubmissionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'task', 'created_at']
+    list_filter = ['user', 'task', 'created_at']
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user']
