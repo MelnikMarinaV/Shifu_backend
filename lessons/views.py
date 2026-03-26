@@ -124,6 +124,8 @@ def upload_audio(request, task_id):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def my_submissions(request):
-    items = TaskSubmission.objects.filter(user=request.user).select_related("task")
+    items = TaskSubmission.objects.filter(user=request.user).select_related(
+        "task", "task__lesson", "task__lesson__course"
+    )
 
     return Response({"submissions": TaskSubmissionSerializer(items, many=True).data})
