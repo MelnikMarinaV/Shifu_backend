@@ -74,7 +74,20 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class TaskSubmissionSerializer(serializers.ModelSerializer):
     task_title = serializers.CharField(source="task.title", read_only=True)
+    lesson_title = serializers.CharField(source="task.lesson.title", read_only=True)
+    course_title = serializers.CharField(
+        source="task.lesson.course.title", read_only=True
+    )
 
     class Meta:
         model = TaskSubmission
-        fields = ["id", "task", "task_title", "comment", "result_file", "created_at"]
+        fields = [
+            "id",
+            "task",
+            "task_title",
+            "lesson_title",
+            "course_title",
+            "comment",
+            "result_file",
+            "created_at",
+        ]
