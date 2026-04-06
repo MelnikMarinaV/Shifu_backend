@@ -52,5 +52,6 @@ class TaskSubmission(models.Model):
     ai_feedback = models.TextField(blank=True, null=True)
     ai_score = models.IntegerField(blank=True, null=True)
     ai_status = models.CharField(max_length=20, default="pending")
+
     def __str__(self):
         return f"{self.user.username} -> {self.task.title}"

@@ -132,11 +132,14 @@ def my_submissions(request):
 
     return Response({"submissions": TaskSubmissionSerializer(items, many=True).data})
 
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def check_submission_ai(request, submission_id):
     submission = get_object_or_404(
-        TaskSubmission.objects.select_related("task", "task__lesson", "task__lesson__course"),
+        TaskSubmission.objects.select_related(
+            "task", "task__lesson", "task__lesson__course"
+        ),
         id=submission_id,
         user=request.user,
     )

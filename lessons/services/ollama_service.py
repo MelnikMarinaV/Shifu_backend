@@ -22,19 +22,17 @@ def check_text_with_ollama(transcript: str, task_text: str) -> dict:
         "http://localhost:11434/api/chat",
         json={
             "model": "gemma3",
-            "messages": [
-                {"role": "user", "content": prompt}
-            ],
+            "messages": [{"role": "user", "content": prompt}],
             "stream": False,
             "format": {
                 "type": "object",
                 "properties": {
                     "score": {"type": "integer"},
                     "feedback": {"type": "string"},
-                    "short_comment": {"type": "string"}
+                    "short_comment": {"type": "string"},
                 },
-                "required": ["score", "feedback", "short_comment"]
-            }
+                "required": ["score", "feedback", "short_comment"],
+            },
         },
         timeout=120,
     )
