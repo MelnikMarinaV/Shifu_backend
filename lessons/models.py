@@ -48,6 +48,10 @@ class TaskSubmission(models.Model):
     comment = models.TextField(blank=True, null=True, default="")
     result_file = models.FileField(upload_to="submissions/")
     created_at = models.DateTimeField(auto_now_add=True)
+    transcript = models.TextField(blank=True, null=True)
+    ai_feedback = models.TextField(blank=True, null=True)
+    ai_score = models.IntegerField(blank=True, null=True)
+    ai_status = models.CharField(max_length=20, default="pending")
 
     def __str__(self):
         return f"{self.user.username} -> {self.task.title}"

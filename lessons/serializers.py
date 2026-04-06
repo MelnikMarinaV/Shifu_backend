@@ -90,4 +90,8 @@ class TaskSubmissionSerializer(serializers.ModelSerializer):
             "comment",
             "result_file",
             "created_at",
+            "transcript",
+            "ai_feedback",
+            "ai_score",
+            "ai_status",
         ]
