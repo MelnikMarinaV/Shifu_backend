@@ -6,6 +6,11 @@ from rest_framework.decorators import api_view, permission_classes, parser_class
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+import re
+
+
+def is_chinese(text):
+    return bool(re.search(r"[\u4e00-\u9fff]", text))
 
 
 from .models import Course, Lesson, Task, TaskSubmission
@@ -18,6 +23,7 @@ from .serializers import (
     TaskSubmissionSerializer,
 )
 from .services.ollama_service import check_text_with_ollama
+from .services.whisper_service import transcribe_audio
 
 
 @api_view(["POST"])
@@ -152,21 +158,60 @@ def check_submission_ai(request, submission_id):
         submission.save(update_fields=["ai_status"])
 
         audio_path = submission.result_file.path
+        transcript = transcribe_audio(audio_path)
 
-        # Пока заглушка вместо настоящей расшифровки mp3
-        transcript = "你好"
+        if not transcript:
+            transcript = "Не удалось распознать речь."
 
+        submission.transcript = transcript
+
+        # Если ответ НЕ на китайском — сразу 0
+        if not is_chinese(transcript):
+            submission.ai_score = 0
+            submission.ai_feedback = "Ответ должен быть на китайском языке."
+            submission.comment = "Неправильный язык"
+            submission.ai_status = "done"
+            submission.save(
+                update_fields=[
+                    "transcript",
+                    "ai_score",
+                    "ai_feedback",
+                    "comment",
+                    "ai_status",
+                ]
+            )
+
+            return Response(
+                {
+                    "message": "Проверка завершена",
+                    "audio_path": audio_path,
+                    "transcript": submission.transcript,
+                    "score": submission.ai_score,
+                    "feedback": submission.ai_feedback,
+                    "status": submission.ai_status,
+                },
+                status=200,
+            )
+
+        # Если китайский — отправляем в Ollama
         result = check_text_with_ollama(
             transcript=transcript,
             task_text=submission.task.title,
         )
 
-        submission.transcript = transcript
         submission.ai_score = result.get("score")
         submission.ai_feedback = result.get("feedback")
         submission.comment = result.get("short_comment")
         submission.ai_status = "done"
-        submission.save()
+        submission.save(
+            update_fields=[
+                "transcript",
+                "ai_score",
+                "ai_feedback",
+                "comment",
+                "ai_status",
+            ]
+        )
 
         return Response(
             {
