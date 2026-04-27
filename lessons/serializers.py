@@ -38,14 +38,26 @@ class MeUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["avatar"]
+        fields = ["username", "email", "avatar"]
+        extra_kwargs = {
+            "username": {"required": False},
+            "email": {"required": False},
+        }
 
     def update(self, instance, validated_data):
+        # --- USER DATA ---
+        instance.username = validated_data.get("username", instance.username)
+        instance.email = validated_data.get("email", instance.email)
+        instance.save()
+
+        # --- PROFILE DATA ---
         profile_data = validated_data.get("profile", {})
         avatar = profile_data.get("avatar")
+
         if avatar:
             instance.profile.avatar = avatar
             instance.profile.save()
+
         return instance
 
 
