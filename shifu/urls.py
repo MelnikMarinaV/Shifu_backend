@@ -19,6 +19,11 @@ urlpatterns = [
     path("api/tasks/<int:task_id>/upload-audio/", views.upload_audio),
     path("api/my-submissions/", views.my_submissions),
     path("api/submissions/<int:submission_id>/check-ai/", views.check_submission_ai),
+    path(
+        "api/submissions/<int:submission_id>/delete/",
+        views.delete_submission_view,
+        name="delete-submission",
+    ),
 ]
 
 if settings.DEBUG:

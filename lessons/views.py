@@ -132,8 +132,10 @@ def upload_audio(request, task_id):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def my_submissions(request):
-    items = TaskSubmission.objects.filter(user=request.user).select_related(
-        "task", "task__lesson", "task__lesson__course"
+    items = (
+        TaskSubmission.objects.filter(user=request.user)
+        .order_by("-created_at")
+        .select_related("task", "task__lesson", "task__lesson__course")
     )
 
     return Response({"submissions": TaskSubmissionSerializer(items, many=True).data})
@@ -231,3 +233,13 @@ def check_submission_ai(request, submission_id):
         submission.save(update_fields=["ai_status", "ai_feedback"])
 
         return Response({"error": str(e)}, status=500)
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_submission_view(request, submission_id):
+    submission = get_object_or_404(TaskSubmission, id=submission_id, user=request.user)
+
+    submission.delete()
+
+    return Response({"detail": "Запись удалена"}, status=status.HTTP_204_NO_CONTENT)
