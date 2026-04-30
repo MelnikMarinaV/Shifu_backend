@@ -19,6 +19,7 @@ from .serializers import (
     MeSerializer,
     MeUpdateSerializer,
     CourseSerializer,
+    LessonSerializer,
     TaskSerializer,
     TaskSubmissionSerializer,
 )
@@ -63,18 +64,9 @@ def lessons(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     items = course.lessons.all()
 
-    return Response(
-        {
-            "lessons": [
-                {
-                    "id": item.id,
-                    "title": item.title,
-                    "description": item.description,
-                }
-                for item in items
-            ]
-        }
-    )
+    serializer = LessonSerializer(items, many=True)
+
+    return Response({"lessons": serializer.data})
 
 
 @api_view(["GET"])
