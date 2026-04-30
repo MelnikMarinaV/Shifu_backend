@@ -67,10 +67,22 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = ["id", "title"]
 
 
+class LessonTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ["id", "title"]
+
+
 class LessonSerializer(serializers.ModelSerializer):
+    tasks = serializers.SerializerMethodField()
+
     class Meta:
         model = Lesson
-        fields = ["id", "title", "description", "course"]
+        fields = ["id", "title", "description", "course", "tasks"]
+
+    def get_tasks(self, obj):
+        tasks = Task.objects.filter(lesson=obj)
+        return LessonTaskSerializer(tasks, many=True).data
 
 
 class TaskSerializer(serializers.ModelSerializer):
