@@ -20,9 +20,7 @@ class SubmissionAPITestCase(APITestCase):
 
         self.client.force_authenticate(user=self.user)
 
-        self.course = Course.objects.create(
-            title="HSK 1"
-        )
+        self.course = Course.objects.create(title="HSK 1")
 
         self.lesson = Lesson.objects.create(
             course=self.course,
@@ -69,9 +67,7 @@ class SubmissionAPITestCase(APITestCase):
             task=self.task,
         )
 
-        response = self.client.get(
-            "/api/my-submissions/"
-        )
+        response = self.client.get("/api/my-submissions/")
 
         self.assertEqual(
             response.status_code,
@@ -89,17 +85,11 @@ class SubmissionAPITestCase(APITestCase):
             task=self.task,
         )
 
-        response = self.client.delete(
-            f"/api/submissions/{submission.id}/delete/"
-        )
+        response = self.client.delete(f"/api/submissions/{submission.id}/delete/")
 
         self.assertEqual(
             response.status_code,
             status.HTTP_204_NO_CONTENT,
         )
 
-        self.assertFalse(
-            TaskSubmission.objects.filter(
-                id=submission.id
-            ).exists()
-        )
+        self.assertFalse(TaskSubmission.objects.filter(id=submission.id).exists())

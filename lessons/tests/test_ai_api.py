@@ -23,9 +23,7 @@ class AIAPITestCase(APITestCase):
 
         self.client.force_authenticate(user=self.user)
 
-        self.course = Course.objects.create(
-            title="HSK 1"
-        )
+        self.course = Course.objects.create(title="HSK 1")
 
         self.lesson = Lesson.objects.create(
             course=self.course,
@@ -66,9 +64,7 @@ class AIAPITestCase(APITestCase):
             "short_comment": "Хороший ответ",
         }
 
-        response = self.client.post(
-            f"/api/submissions/{self.submission.id}/check-ai/"
-        )
+        response = self.client.post(f"/api/submissions/{self.submission.id}/check-ai/")
 
         self.assertEqual(
             response.status_code,
@@ -77,22 +73,10 @@ class AIAPITestCase(APITestCase):
 
         self.submission.refresh_from_db()
 
-        self.assertEqual(
-            self.submission.transcript,
-            "你好"
-        )
+        self.assertEqual(self.submission.transcript, "你好")
 
-        self.assertEqual(
-            self.submission.ai_score,
-            95
-        )
+        self.assertEqual(self.submission.ai_score, 95)
 
-        self.assertEqual(
-            self.submission.ai_feedback,
-            "Отличное произношение"
-        )
+        self.assertEqual(self.submission.ai_feedback, "Отличное произношение")
 
-        self.assertEqual(
-            self.submission.ai_status,
-            "done"
-        )
+        self.assertEqual(self.submission.ai_status, "done")
