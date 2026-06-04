@@ -1,0 +1,105 @@
+[
+{
+  "model": "lessons.course",
+  "pk": 1,
+  "fields": {
+    "title": "HSK-1"
+  }
+},
+{
+  "model": "lessons.lesson",
+  "pk": 2,
+  "fields": {
+    "title": "你好！Привет!",
+    "description": "<div class=\"lesson\">\r\n      <div class=\"lesson-theory\">\r\n      <p>\r\n      В китайском языке слова не изменяются по лицам, временам, родам, числам, видам и падежам. \r\n      В этом плане русский язык намного сложнее. Поэтому очень важно понять, как строится китайское предложение. \r\n      Самый простой порядок слов – это Подлежащее Сказуемое. <br><br>Например: <span class=\"characters\">您好</span><br>\r\n      </p>\r\n       <br>\r\n\r\n      <h2>Типы предложений</h2>\r\n      <br>\r\n      <ol>\r\n        <li>Предложение с качественным сказуемым</li>\r\n        <p>\r\n          Предложением с качественным сказуемым называется такое предложение, в котором в качестве сказуемого может \r\n          выступать качественное прилагательное, предметно-качественное или числительно-предметное словосочетание.\r\n          Например:<span class=\"characters\">我很好</span> (<span class=\"characters\">我</span>- подлежащее, \r\n          <span class=\"characters\">很</span> – наречие, <span class=\"characters\">好</span> – качественное сказуемое).\r\n        </p>\r\n        <br>\r\n        <li>Вопросительная частица <span class=\"characters\">吗</span></li>\r\n        <p>\r\n          Самый распространенный способ задать вопрос в китайском языке – это взять повествовательное (утвердительное) предложение\r\n          и прибавить в конце частицу <span class=\"characters\">吗</span>. Например: <span class=\"characters\">你好吗</span> – Как поживаешь? Как дела?\r\n          </p>\r\n          <br>\r\n        <li>Множественное число</li>\r\n        <p>\r\n          В упражнениях вы встретите <span class=\"characters\">先生们</span>(господа) и <span class=\"characters\">你们</span>(вы)\r\n          – множественное число от  <span class=\"characters\">你</span>(ты) и <span class=\"characters\">先生</span>(господин). \r\n          Подобным же образом образуется еще несколько множественных форм существительных (например, ученики), а также\r\n          некоторые местоимения (они, мы).Но об этом мы поговорим в следующих уроках. Надо запомнить, что большинство \r\n          существительных не образуют множественное число подобным образом. Они его никак не образуют, так как по умолчанию \r\n          существительные в китайском языке (кроме тех, к которым для образования множественного числа прибавляется <span class=\"characters\">们</span>) \r\n          обозначают и единственное и множественное число. Для уточнения «единственности» предмета используются числительное\r\n           «1» и соответствующее счетное слово, но об этом мы будем говорить позже.\r\n          </p>\r\n      </ol>\r\n    </div>\r\n    </div>",
+    "course": 1
+  }
+},
+{
+  "model": "lessons.lesson",
+  "pk": 3,
+  "fields": {
+    "title": "谢谢你！Спасибо!",
+    "description": "<div class=\"lesson\">\r\n      <div class=\"lesson-theory\">\r\n      <p>\r\n        Вежливость — основа китайской культуры и языка. В этом уроке мы изучим, как выражать благодарность, отвечать на неё, а также как приносить извинения. Эти фразы являются неотъемлемой частью ежедневного общения.\r\n      </p>\r\n      <br>\r\n\r\n      <h2>Выражение благодарности</h2>\r\n      <br>\r\n      <p>\r\n        Основное и самое универсальное слово для выражения благодарности — это <span class=\"characters\">谢谢</span> (Xièxie) — «Спасибо».<br>\r\n        Однако, чтобы звучать более естественно и вежливо, часто используют расширенные формы:\r\n      </p>\r\n      <br>\r\n      <ol>\r\n        <li><strong>Спасибо вам:</strong> <span class=\"characters\">谢谢您。</span> (Xièxie nín.)<br>\r\n        Здесь <span class=\"characters\">您</span> (nín) — это вежливая форма местоимения «ты/вы». Она используется при обращении к старшим, начальникам или в формальной обстановке.\r\n        </li>\r\n        <br>\r\n        <li><strong>Большое спасибо:</strong> <span class=\"characters\">非常感谢。</span> (Fēicháng gǎnxiè.)<br>\r\n        Более формальное и сильное выражение благодарности. <span class=\"characters\">感谢</span> (gǎnxiè) — это глагол «быть благодарным», «ценить».\r\n        </li>\r\n        <br>\r\n        <li><strong>Спасибо (за помощь):</strong> <span class=\"characters\">谢谢你帮忙。</span> (Xièxie nǐ bāngmáng.)<br>\r\n        Это пример конструкции, где после <span class=\"characters\">谢谢</span> можно добавить человека и причину благодарности. <span class=\"characters\">帮忙</span> (bāngmáng) — «помощь», «помогать».\r\n        </li>\r\n      </ol>\r\n      <br>\r\n\r\n      <h2>Как ответить на благодарность</h2>\r\n      <br>\r\n      <p>\r\n        В китайском языке есть несколько распространённых способов ответить на «Спасибо». В отличие от русского «Пожалуйста», они не являются прямым переводом.\r\n      </p>\r\n      <br>\r\n      <ul>\r\n        <li><strong>Не за что / Пожалуйста (самый частый вариант):</strong><br>\r\n        <span class=\"characters\">不客气。</span> (Bù kèqì.) — дословно «Не будь церемонным/гостевой». Это стандартный и универсальный ответ.\r\n        </li>\r\n        <br>\r\n        <li><strong>Не стоит благодарности:</strong><br>\r\n        <span class=\"characters\">不用谢。</span> (Bùyòng xiè.) — «Не нужно благодарить».\r\n        </li>\r\n        <br>\r\n        <li><strong>Не за что (менее формально):</strong><br>\r\n        <span class=\"characters\">没事儿。</span> (Méi shìr.) — «Пустяки», «Ничего страшного». Чаще используется в Северном Китае в неформальной речи.\r\n        </li>\r\n      </ul>\r\n      <br>\r\n\r\n      <h2>Извинения</h2>\r\n      <br>\r\n      <p>\r\n        Часто ситуация, где нужно сказать «спасибо», также требует или может сопровождаться извинениями (например, если побеспокоили человека).\r\n      </p>\r\n      <br>\r\n      <ul>\r\n        <li><strong>Простите / Извините:</strong> <span class=\"characters\">对不起。</span> (Duìbuqǐ.) — Самое распространённое извинение за проступок или причинённые неудобства.</li>\r\n        <li><strong>Ничего / Всё в порядке (ответ на извинение):</strong> <span class=\"characters\">没关系。</span> (Méi guānxi.) — «Ничего», «Не беспокойтесь», «Всё в порядке».</li>\r\n      </ul>\r\n      <br>\r\n\r\n      <h2>Пример ситуативного диалога</h2>\r\n      <br>\r\n      <p>\r\n        <strong>А (студент):</strong> <span class=\"characters\">老师，您好。请问，这个字是什么意思？</span><br>\r\n        (Lǎoshī, nín hǎo. Qǐngwèn, zhège zì shì shénme yìsi?)<br>\r\n        — Учитель, здравствуйте. Скажите, пожалуйста, что значит этот иероглиф?<br><br>\r\n\r\n        <strong>Б (учитель):</strong> <span class=\"characters\">这个字是“谢”，是“谢谢”的“谢”。</span><br>\r\n        (Zhège zì shì \"xiè\", shì \"xièxie\" de \"xiè\".)<br>\r\n        — Этот иероглиф — «Се», это «Се» из слова «Сесе» (спасибо).<br><br>\r\n\r\n        <strong>А:</strong> <span class=\"characters\">哦，我明白了。谢谢您，老师！</span><br>\r\n        (Ò, wǒ míngbái le. Xièxie nín, lǎoshī!)<br>\r\n        — А, я понял. Спасибо вам, учитель!<br><br>\r\n\r\n        <strong>Б:</strong> <span class=\"characters\">不客气。</span> (Bù kèqì.) — Не за что.<br><br>\r\n\r\n        <strong>А (забыл тетрадь):</strong> <span class=\"characters\">对不起，我的本子在桌子上。</span><br>\r\n        (Duìbuqǐ, wǒ de běnzi zài zhuōzi shàng.)<br>\r\n        — Извините, моя тетрадь на столе.<br><br>\r\n\r\n        <strong>Б:</strong> <span class=\"characters\">没关系。</span> (Méi guānxi.) — Ничего.\r\n      </p>\r\n      <br>\r\n      <p>\r\n        <strong>Обратите внимание:</strong> В диалоге появилась новая полезная фраза — <span class=\"characters\">请问</span> (qǐngwèn) — «Скажите, пожалуйста», «Прошу прощения (за вопрос)». Её вежливо использовать, чтобы привлечь внимание перед вопросом.\r\n      </p>\r\n    </div>\r\n</div>",
+    "course": 1
+  }
+},
+{
+  "model": "lessons.lesson",
+  "pk": 4,
+  "fields": {
+    "title": "你好吗? Как дела?",
+    "description": "<div class=\"lesson\">\r\n      <div class=\"lesson-theory\">\r\n      <p>\r\n        В китайском языке, чтобы спросить «Как дела?» и ответить на этот вопрос, мы используем конструкции, которые вы уже начали изучать. В этом уроке мы углубимся в тему приветствий и вежливого обмена репликами, а также познакомимся с новыми важными словами и конструкциями.\r\n      </p>\r\n       <br>\r\n\r\n      <h2>Базовый диалог «Как дела?»</h2>\r\n      <br>\r\n      <p>\r\n        Самый распространенный вопрос после приветствия – <span class=\"characters\">你好吗？</span> (Nǐ hǎo ma?) – «Как (твои) дела?».<br>\r\n        Давайте разберем классические ответы на него:\r\n      </p>\r\n      <br>\r\n      <ol>\r\n        <li><strong>Положительный ответ:</strong> <span class=\"characters\">我很好。</span> (Wǒ hěn hǎo.) – «У меня (очень) хорошо».<br>\r\n        Здесь <span class=\"characters\">很</span> (hěn) часто выступает не как усилительное наречие «очень», а как связка между подлежащим и прилагательным в утвердительных предложениях.\r\n        </li>\r\n        <br>\r\n        <li><strong>Нейтральный ответ:</strong> <span class=\"characters\">我还好。</span> (Wǒ hái hǎo.) – «У меня еще-как-ни-то», «Нормально».<br>\r\n            <span class=\"characters\">还</span> (hái) – наречие «еще», «все-таки».\r\n        </li>\r\n        <br>\r\n        <li><strong>Очень хорошо:</strong> <span class=\"characters\">我非常好。</span> (Wǒ fēicháng hǎo.) – «У меня прекрасно/отлично».<br>\r\n            <span class=\"characters\">非常</span> (fēicháng) – наречие «очень», «чрезвычайно» (сильнее, чем <span class=\"characters\">很</span>).\r\n        </li>\r\n        <br>\r\n        <li><strong>Вежливый вопрос взамен:</strong> После ответа принято вежливо поинтересоваться делами собеседника. Для этого можно просто повторить вопрос: <span class=\"characters\">你呢？</span> (Nǐ ne?) – «А ты?».<br>\r\n        Частица <span class=\"characters\">呢</span> (ne) ставится в конце фразы для образования встречного вопроса по уже затронутой теме.\r\n        </li>\r\n      </ol>\r\n      <br>\r\n\r\n      <h2>Новая лексика</h2>\r\n      <br>\r\n      <p>В этом уроке мы также встречаем новую лексику:</p>\r\n      <br>\r\n      <ul>\r\n        <li><span class=\"characters\">谢</span> (Xiè) – «благодарить». Входит в состав слова <span class=\"characters\">谢谢</span> (xièxie) – «спасибо».</li>\r\n        <li><span class=\"characters\">再</span> (Zài) – «снова», «еще». Входит в состав прощания <span class=\"characters\">再见</span> (zàijiàn) – «до свидания» (досл. «снова увидимся»).</li>\r\n        <li><span class=\"characters\">见</span> (Jiàn) – «видеть», «встречать».</li>\r\n      </ul>\r\n      <br>\r\n\r\n      <h2>Пример диалога</h2>\r\n      <br>\r\n      <p>\r\n        <strong>А:</strong> <span class=\"characters\">你好吗？</span> (Nǐ hǎo ma?) – Как дела?<br>\r\n        <strong>Б:</strong> <span class=\"characters\">我很好，谢谢。你呢？</span> (Wǒ hěn hǎo, xièxie. Nǐ ne?) – У меня хорошо, спасибо. А у тебя?<br>\r\n        <strong>А:</strong> <span class=\"characters\">我也很好。</span> (Wǒ yě hěn hǎo.) – У меня тоже хорошо.<br>\r\n        <strong>Б:</strong> <span class=\"characters\">再见！</span> (Zàijiàn!) – До свидания!<br>\r\n        <strong>А:</strong> <span class=\"characters\">再见！</span> (Zàijiàn!) – До свидания!\r\n      </p>\r\n      <br>\r\n      <p>\r\n        <strong>Обратите внимание:</strong> В ответе Б появилось новое слово – <span class=\"characters\">也</span> (yě) – «тоже». Оно ставится <strong>перед</strong> сказуемым или наречием, к которому относится.\r\n      </p>\r\n    </div>\r\n</div>",
+    "course": 1
+  }
+},
+{
+  "model": "lessons.lesson",
+  "pk": 5,
+  "fields": {
+    "title": "Ni Hao",
+    "description": "<div class=\"lesson\">\r\n      <div class=\"lesson-theory\">\r\n      <p>\r\n      В китайском языке слова не изменяются по лицам, временам, родам, числам, видам и падежам. \r\n      В этом плане русский язык намного сложнее. Поэтому очень важно понять, как строится китайское предложение. \r\n      Самый простой порядок слов – это Подлежащее Сказуемое. <br><br>Например: <span class=\"characters\">您好</span><br>\r\n      </p>\r\n       <br>\r\n\r\n      <h2>Типы предложений</h2>\r\n      <br>\r\n      <ol>\r\n        <li>Предложение с качественным сказуемым</li>\r\n        <p>\r\n          Предложением с качественным сказуемым называется такое предложение, в котором в качестве сказуемого может \r\n          выступать качественное прилагательное, предметно-качественное или числительно-предметное словосочетание.\r\n          Например:<span class=\"characters\">我很好</span> (<span class=\"characters\">我</span>- подлежащее, \r\n          <span class=\"characters\">很</span> – наречие, <span class=\"characters\">好</span> – качественное сказуемое).\r\n        </p>\r\n        <br>\r\n        <li>Вопросительная частица <span class=\"characters\">吗</span></li>\r\n        <p>\r\n          Самый распространенный способ задать вопрос в китайском языке – это взять повествовательное (утвердительное) предложение\r\n          и прибавить в конце частицу <span class=\"characters\">吗</span>. Например: <span class=\"characters\">你好吗</span> – Как поживаешь? Как дела?\r\n          </p>\r\n          <br>\r\n        <li>Множественное число</li>\r\n        <p>\r\n          В упражнениях вы встретите <span class=\"characters\">先生们</span>(господа) и <span class=\"characters\">你们</span>(вы)\r\n          – множественное число от  <span class=\"characters\">你</span>(ты) и <span class=\"characters\">先生</span>(господин). \r\n          Подобным же образом образуется еще несколько множественных форм существительных (например, ученики), а также\r\n          некоторые местоимения (они, мы).Но об этом мы поговорим в следующих уроках. Надо запомнить, что большинство \r\n          существительных не образуют множественное число подобным образом. Они его никак не образуют, так как по умолчанию \r\n          существительные в китайском языке (кроме тех, к которым для образования множественного числа прибавляется <span class=\"characters\">们</span>) \r\n          обозначают и единственное и множественное число. Для уточнения «единственности» предмета используются числительное\r\n           «1» и соответствующее счетное слово, но об этом мы будем говорить позже.\r\n          </p>\r\n      </ol>\r\n    </div>\r\n    </div>",
+    "course": 1
+  }
+},
+{
+  "model": "lessons.task",
+  "pk": 1,
+  "fields": {
+    "title": "你好!",
+    "lesson": 2,
+    "task_description": "Nǐhǎo! Привет!",
+    "audio_file": "task_audio/task1.mp3"
+  }
+},
+{
+  "model": "lessons.task",
+  "pk": 2,
+  "fields": {
+    "title": "你们好！",
+    "lesson": 2,
+    "task_description": "Nǐmen hǎo! Здравствуйте! (обращение к группе лиц)",
+    "audio_file": "task_audio/task2.mp3"
+  }
+},
+{
+  "model": "lessons.task",
+  "pk": 3,
+  "fields": {
+    "title": "早上好！",
+    "lesson": 2,
+    "task_description": "Zǎoshang hǎo! Доброе утро!",
+    "audio_file": "task_audio/task3.mp3"
+  }
+},
+{
+  "model": "lessons.task",
+  "pk": 4,
+  "fields": {
+    "title": "晚上好！",
+    "lesson": 2,
+    "task_description": "Wǎnshang hǎo! Добрый вечер!",
+    "audio_file": "task_audio/task4.mp3"
+  }
+},
+{
+  "model": "lessons.task",
+  "pk": 5,
+  "fields": {
+    "title": "你怎么样?",
+    "lesson": 2,
+    "task_description": "Nǐ zěnmeyàng？Как у вас дела?",
+    "audio_file": "task_audio/task5.mp3"
+  }
+},
+{
+  "model": "lessons.task",
+  "pk": 6,
+  "fields": {
+    "title": "Nihao",
+    "lesson": 3,
+    "task_description": "hello",
+    "audio_file": ""
+  }
+}
+]
