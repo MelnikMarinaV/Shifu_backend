@@ -1,0 +1,16 @@
+services:
+  backend:
+    build:
+      context: .
+    container_name: shifu_backend
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: "../../shifu_diploma/shifu_front-master"
+    container_name: shifu_frontend
+    ports:
+      - "5174:5174"
+    depends_on:
+      - backend
